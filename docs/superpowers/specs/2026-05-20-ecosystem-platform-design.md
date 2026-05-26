@@ -11,7 +11,7 @@
 
 Arcidex is pivoting from a single-product Arcium academy into **multi-tenant onboarding infrastructure** for apps in the Arcium ecosystem. Each ecosystem partner runs a **Program** (structured lessons + comprehension quizzes) for its users under one **Arcidex hub**, with **Arcium as Program #1**.
 
-This revision strengthens the original plan where it was vague: **tenancy is first-class**, **published content is versioned and immutable**, **tenant isolation is enforced in the database and application layer**, **lesson content is block-structured**, **gamification is narrowed for v1**, and **events + analytics are designed in from the start** rather than bolted on later.
+This revision strengthens the original plan where it was vague: **tenancy is first-class**, **published content is versioned and immutable**, **tenant isolation is enforced in the database and application layer**, **lesson content is block-structured**, **learning integrity over gamification for v1**, and **events + analytics are designed in from the start** rather than bolted on later.
 
 **v1 goal (honest scope):** A learner can discover curated programs on the hub, enroll, complete a linear curriculum with comprehension checks, and retain progress across sessions—including guest-first entry on lesson 1. Staff can onboard partners, build their first program, and publish curated hub listings. One trusted pilot partner can self-serve draft content under staff review.
 
@@ -28,7 +28,7 @@ This revision strengthens the original plan where it was vague: **tenancy is fir
 Arcidex is **onboarding infrastructure** for the Arcium ecosystem:
 
 - Partners need users to **understand** their product, not just click through docs—and to **activate** with less friction, **consistent** education, **visible drop-off**, and **fewer unprepared support requests**.
-- Learners get **one account**, a **curated catalog**, and **consistent comprehension mechanics** (read → check → progress).
+- Learners get **progress continuity**, **verified completion**, and a path toward **ecosystem readiness**—not streaks or cosmetic rewards.
 - Arcidex owns **structure, integrity, and trust**—not partner product logic.
 
 **Partner outcomes:**
@@ -49,7 +49,7 @@ Arcidex is **onboarding infrastructure** for the Arcium ecosystem:
 |----------|-----|
 | Generic LMS (Canvas, Moodle) | We don't do arbitrary courses, grading rubrics, instructor classrooms, or SCORM. |
 | Partner CMS / marketing site builder | Lesson blocks are structured and constrained; partners don't own layout/CSS. |
-| Full gamification platform | v1 ships core progress mechanics; motivational extras are opt-in and limited. |
+| Full gamification platform | v1 ships comprehension + progress integrity; streaks/badges/leaderboards/tokens are out of scope |
 | Analytics warehouse | v1 ships operational metrics and exports; not a BI product. |
 | White-label auth provider | Global Arcidex account; partner SSO is post-v1. |
 
@@ -270,7 +270,7 @@ Staff sets `organization.trust_level` after first staff-co-built program ships a
 - [ ] All quiz questions validated  
 - [ ] Accessibility spot-check (headings, alt text)  
 - [ ] No broken images / links  
-- [ ] Gamification preset appropriate  
+- [ ] Quiz scoring thresholds documented and appropriate  
 - [ ] Partner member accounts provisioned  
 
 ### 4.3 Content governance state machine
@@ -337,7 +337,6 @@ Staff Studio is the **evolution of `/staff/modules`**, not a parallel system.
 - Version rollback  
 - Enrollment migration (manual)  
 - Moderation / sunset  
-- Gamification preset ceiling per program (partners cannot enable deferred features)
 
 ---
 
@@ -392,11 +391,22 @@ Programs appear on hub only when **all** are true:
 
 ---
 
-## 7. Revised gamification model
+## 7. Learning integrity and learner value (v1)
 
 ### 7.1 Design principle
 
-Separate **core learning mechanics** (required for product integrity) from **motivational overlays** (optional, operational cost).
+Arcidex optimizes for **credible learning outcomes** in technical ecosystems—not engagement mechanics that feel superficial. Partners and learners should trust that progress means comprehension and readiness, not vanity metrics.
+
+**v1 emphasis:**
+
+| Theme | What it means |
+| --- | --- |
+| **Progress continuity** | One global account; enrollments pinned to `curriculum_version`; guest merge preserves first-lesson work. |
+| **Verified completion** | Quiz pass/mastery tied to immutable `lesson_version` / `quiz_version` rows. |
+| **Credentialing foundation** | Server-side completion and mastery states; surfaced in `/account` and partner analytics—not yet portable credentials. |
+| **Ecosystem readiness** | Finish a program knowing you met the bar to integrate or ask smarter support questions. |
+
+Separate **core learning mechanics** (integrity contract) from **proof-of-learning** (post-v1: attestations and portable records—not tokens).
 
 ### 7.2 Core learning mechanics (v1 — always on)
 
@@ -413,43 +423,44 @@ Not marketed as "gamification"; these are the learning contract:
 
 Stored in `quiz_version.scoring_config` snapshot at publish.
 
-### 7.3 Motivational overlays (v1 — limited)
+### 7.3 Progress surfaces (v1)
 
-| Feature | v1 status | Partner control | Operational notes |
-|---------|-----------|-----------------|-------------------|
-| **Completion badge** | ship | on/off | Single badge per program completion; static SVG set |
-| **Mastery badge** | ship | on/off | When mastery threshold hit |
-| **Daily streak** | ship | on/off | Counts days with ≥1 lesson activity in program; **no push notifications v1** |
-| **Progress map UI** | ship | on/off | Visual only; uses core progress data |
+| Surface | v1 status | Notes |
+|---------|-----------|-------|
+| **Enrollment + version-pinned progress** | ship | Core continuity model |
+| **Quiz pass / mastery states** | ship | Verified comprehension per lesson |
+| **Program completion record** | ship | `learner.program_completed` event; `/account` summary |
+| **Progress map UI** | ship | Visual only; uses core progress data |
 
-### 7.4 Explicitly deferred (with rationale)
+### 7.4 Explicitly out of scope (v1 and product narrative)
 
-| Feature | Defer to | Why |
-|---------|----------|-----|
-| Leaderboards | v1.2+ | Abuse (gaming), moderation, opt-in complexity, privacy |
-| Weekly goals | v1.2+ | Notification + timezone burden |
-| XP / levels | defer | Duolingo drift; not our thesis |
-| Tier labels (bronze/gold) | defer | Cosmetic without levels infrastructure |
-| Seasonal resets | never? | Conflicts with progress integrity narrative |
+| Feature | Status | Why |
+|---------|--------|-----|
+| Daily streaks | not v1 | Superficial in technical ecosystems; timezone/ops burden |
+| Completion / mastery badges (cosmetic) | not v1 | De-emphasized; completion **record** is the signal |
+| Leaderboards | defer | Abuse, privacy, not our thesis |
+| XP / levels / tier labels | never | Duolingo drift; conflicts with infrastructure identity |
+| Token / NFT rewards | never | Not our model; see proof-of-learning instead |
+| Seasonal resets | never | Conflicts with progress integrity |
 | Push/email notifications | v1.2+ | Deliverability, consent, ops |
-| Cross-program streaks | defer | Dilutes program focus |
+| Cross-program streaks or badges | never | Dilutes program focus |
 
-### 7.5 Gamification preset (simplified)
+### 7.5 Proof-of-learning (Phase 4+ direction)
 
-Partners choose one preset at program level (staff can override):
+Arcidex aligns with **infrastructure identity**. After v1, evolve toward verifiable outcomes—not token incentives:
 
-| Preset | Core mechanics | Badges | Streak | Progress map |
-|--------|----------------|--------|--------|--------------|
-| `minimal` | ✓ | off | off | on |
-| `standard` (default) | ✓ | on | on | on |
+| Direction | Purpose |
+| --- | --- |
+| **Signed completion attestations** | Cryptographically signed proof a learner completed a specific program + curriculum version—verifiable by partners and tooling. |
+| **Ecosystem credentials** | Named credentials (e.g. "Arcium Fundamentals complete") for gating docs, support tiers, or beta access. |
+| **Portable progress records** | Learner-owned export of enrollment/completion history across Arcidex programs. |
 
-**Remove** light/medium/heavy ladder from original plan—replaced by binary preset + per-mechanic toggles within allowed set.
+**Not in scope:** points-for-completion, token-gated rewards, NFT badges as primary model. Phase 0–1 `platform_event` + version FKs lay groundwork; attestations ship when legal/product gates clear.
 
 ### 7.6 Abuse handling (v1 minimal)
 
-- Quiz submissions rate-limited per user/IP (existing cooldown + API rate limit).  
-- Streak: server-side date validation in user timezone (stored on profile, default UTC).  
-- No public leaderboards → no scoreboard gaming in v1.
+- Quiz submissions rate-limited per user/IP (cooldown + API rate limit).  
+- No public leaderboards or streak incentives → reduced scoreboard gaming surface in v1.
 
 ---
 
@@ -486,7 +497,6 @@ learner.lesson_completed
 learner.quiz_submitted
 learner.quiz_passed
 learner.quiz_mastered
-learner.badge_awarded
 learner.program_completed
 learner.guest_progress_merged
 
@@ -588,15 +598,14 @@ org.trust_level_changed
 - [ ] Submit for review flow + staff approval queue  
 - [ ] Trust level admin UI  
 - [ ] Partner admin analytics read-only  
-- [ ] Gamification preset toggles (standard/minimal)  
 
 **Exit criteria:** Trusted pilot partner submits draft; staff publishes without re-authoring from scratch.
 
 ### Phase 4 — Deferred backlog (post-v1)
 
+- **Proof-of-learning:** signed completion attestations, ecosystem credentials, portable progress records (not tokens)  
 - Webhooks + outbox  
 - Partner self-publish flag  
-- Leaderboards (if ever)  
 - Partner SSO  
 - Embed SDK  
 - Block type expansion  
@@ -626,20 +635,20 @@ org.trust_level_changed
 | Programs as namespaces | Full tenancy hierarchy with versioned immutability |
 | App-layer scoping only | RLS + scoped repositories + tenant context |
 | Free-form body_sections | Structured block schema with render pipeline |
-| light/medium/heavy gamification | Core mechanics + standard/minimal preset; badges/streak/map only |
-| Leaderboards in ceiling | Deferred |
+| light/medium/heavy gamification | Core mechanics + progress surfaces; streaks/badges/leaderboards removed from v1 |
+| Leaderboards / streaks / XP | Out of scope; proof-of-learning in Phase 4+ instead |
 | 6–8 week total estimate | 12–16 weeks to v1 |
 | Slug-global lessons | `(program_id, slug)` + lesson_version FK on progress |
 | Keystatic for lessons | Deprecate for lesson content; hub metadata in Postgres |
 
 ### Defer
 
-- Leaderboards, XP, tiers, seasonal resets  
+- Streaks, cosmetic badges, XP, tiers, seasonal resets, public leaderboards  
+- Token / NFT rewards (proof-of-learning is the future direction)  
 - Push/email notifications  
 - Webhooks (design events now; delivery later)  
 - Partner self-publish without staff  
 - White-label / embed SDK  
-- Cross-program gamification  
 - SCORM, custom question types, arbitrary HTML  
 - Full i18n UI (schema-ready only)  
 - Automated curriculum migration for existing enrollments  
@@ -667,7 +676,6 @@ org.trust_level_changed
 | Migration breaks progress | Medium | High | Dry-run on Neon branch; reversible migration scripts |
 | Scope creep ("just one LMS feature") | High | High | Thesis + keep/defer list in PR template |
 | Partner expects full design control | Medium | Medium | Intake + block constraints documented in partner agreement |
-| Streak timezone edge cases | Low | Low | UTC server dates v1; document limitation |
 | Single shared Neon DB (all envs) | Existing | High | Treat migrations as prod; add staging branch later |
 
 ### Assumptions (explicit)

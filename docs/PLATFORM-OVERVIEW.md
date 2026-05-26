@@ -52,6 +52,17 @@ Partners do **not** build custom courseware or run a separate LMS. Staff help ne
 
 ### Learners
 
+**What they get:** Progress that persists, completion that means something, and a path toward ecosystem readiness—not engagement gimmicks.
+
+| Focus | What Arcidex enables |
+| --- | --- |
+| **Progress continuity** | One account, enrollments pinned to curriculum versions, guest-to-account merge—pick up where you left off across sessions and programs. |
+| **Verified completion** | Quizzes and mastery thresholds confirm comprehension; progress ties to immutable `lesson_version` / `quiz_version` rows, not mutable docs. |
+| **Credentialing (v1 foundation)** | Program completion and quiz pass states are recorded server-side; v1 surfaces them in `/account` and partner analytics—not yet portable credentials. |
+| **Ecosystem readiness** | Finish a program knowing you met the bar to integrate, build, or ask smarter support questions. |
+
+**Day-to-day:**
+
 - Browse the hub and open programs.
 - Read lessons and take quizzes.
 - Keep progress with one account across programs.
@@ -111,19 +122,35 @@ Staff and partner authoring tools live under `/staff` and `/partner` (rolled out
 - One global learner account
 - Staff-built programs for new partners
 - Arcium as the first program at launch
-- Basic progress, badges/streaks (optional presets—not a full game platform)
-- Staff analytics on how programs perform
+- **Progress continuity** across sessions (global account, version-pinned enrollments, guest merge)
+- **Verified completion** via comprehension checks and immutable progress records
+- Staff analytics on program performance and drop-off
 
 **Not in v1 (on purpose):**
 
 - Full LMS features (classrooms, SCORM imports, course marketplaces)
 - Partner-built page design / marketing site builder
-- Public leaderboards
+- Public leaderboards, streaks, XP, or cosmetic badge systems
+- On-chain tokens or token-gated rewards (not our model)
 - “Sign in with partner app” (partner SSO)
 - Embeddable widget for partner apps
 - Webhooks and billing
 
-**Scope check we use:** Does this help verify that a user understood a partner’s product? If not, it waits.
+**Scope check we use:** Does this help verify that a user understood a partner’s product—or credibly record that they did? If not, it waits.
+
+---
+
+## Proof-of-learning (future direction)
+
+Arcidex aligns with **infrastructure identity**, not consumer gamification or token incentives. After v1, the platform is designed to evolve toward **proof-of-learning**:
+
+| Direction | Purpose |
+| --- | --- |
+| **Signed completion attestations** | Cryptographically signed records that a learner completed a specific program version—verifiable by partners and tooling. |
+| **Ecosystem credentials** | Named credentials (e.g. “Arcium Fundamentals complete”) partners and the hub can trust for gating docs, support tiers, or beta access. |
+| **Portable progress records** | Learner-owned export of enrollment and completion history—useful across Arcidex programs without re-proving basics. |
+
+This is **not** a token rewards program. No points-for-completion, no NFT badges as the primary model. Events and version FKs in Phase 0–1 lay groundwork; attestations and credentials ship when legal and product gates clear (Phase 4+).
 
 ---
 
@@ -149,7 +176,7 @@ Partners do **not** go live on their own in v1. Trust is earned manually after s
 | **1 — Learner experience** | Hub, program pages, lesson player, accounts, guest try-then-sign-up | A new visitor can try Arcium lesson 1 and save progress by signing up |
 | **2 — Partner onboarding** | Intake flow, staff authoring UI, publish/rollback tools, basic analytics | A second program built entirely by staff goes live on the hub |
 | **3 — Trusted partners** | Partner draft editor, review queue, trust settings | A trusted partner submits a draft; staff publishes without rewriting from scratch |
-| **4 — Later** | Webhooks, SSO, embeds, leaderboards, etc. | Post–v1 backlog |
+| **4 — Later** | Proof-of-learning, webhooks, SSO, embeds | Signed attestations, ecosystem credentials, portable records; partner integrations |
 
 Estimated calendar time to v1: **about 12–16 weeks** with 1–2 engineers.
 
@@ -163,6 +190,7 @@ These are settled unless leadership explicitly reopens them:
 - Arcium is program #1 at launch
 - Staff must approve all publishes in v1
 - Published snapshots are immutable
+- Learning integrity over streaks/badges; proof-of-learning (attestations, credentials) is the post-v1 direction—not tokens
 - English-only UI for v1 (content structure supports more languages later)
 - Fewer than ~10 partner programs expected in year one
 

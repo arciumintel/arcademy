@@ -39,7 +39,7 @@ Scope test: *Does this help an ecosystem app verify user comprehension of their 
 | **Published content** | Immutable `curriculum_version` / `lesson_version` / `quiz_version`; never UPDATE published rows |
 | **Draft edits** | Always against the program's **working draft curriculum**; publish creates new immutable snapshots |
 | **Enrollment pinning** | `program_enrollment.curriculum_version_id` pinned at enroll/first activity; **unchanged** when staff publishes a newer version (v1 migration is manual staff action) |
-| **Gamification v1** | Core mechanics always on; **standard** vs **minimal** preset; leaderboards deferred |
+| **Learning integrity v1** | Progress continuity, verified completion, comprehension checks; **no** streaks/badges/leaderboards as product focus |
 | **Lesson body** | Structured blocks (Zod-validated); no author-supplied raw HTML |
 | **Tenant isolation** | Tenant context + scoped repositories + Postgres RLS — **all three, from day one** |
 | **Content storage** | Postgres only at runtime; no JSON seed files or Keystatic as lesson source of truth |
@@ -209,7 +209,7 @@ Text fields: `{ "en": "..." }` (only `en` required in v1). New block types ship 
 
 - Quizzes are optional per lesson; snapshotted to `quiz_version` at publish.
 - **Platform-defined question types only** — custom types deferred.
-- Partners configure within bounds: pass/mastery thresholds, retry cooldown, linear unlock, enabled question-type subset, gamification preset.
+- Partners configure within bounds: pass/mastery thresholds, retry cooldown, linear unlock, enabled question-type subset.
 - Config stored in `quiz_version.scoring_config` at publish time.
 - Rate-limit quiz submissions per user/IP (cooldown + API limits).
 
@@ -235,6 +235,7 @@ Text fields: `{ "en": "..." }` (only `en` required in v1). New block types ship 
 - Mutate published version rows in place.
 - Expose quiz answer keys to the client.
 - Add custom question types, leaderboards, SSO, webhooks, embed SDK, or SCORM.
+- Ship streaks, XP, cosmetic badges, or token-gated rewards as core product narrative.
 - Introduce parallel lesson content systems (JSON in git, Keystatic, etc.).
 
 ---
@@ -248,8 +249,8 @@ Build in order. Do not skip phases.
 | **0** | Tenancy foundation | Migrations, RLS, repositories, block schema, Arcium seed, isolation tests. **No public hub UI.** |
 | **1** | Hub + learner loop | Hub routes, lesson player, enrollments, guest merge, `platform_event`, basic staff hub curation |
 | **2** | Partner onboarding | Intake, Staff Studio UI, publish/rollback, preview links, analytics rollups |
-| **3** | Trusted partner drafts | Partner Studio, approval queue, trust admin, partner analytics, gamification presets |
-| **4** | Post-v1 | Webhooks, SSO, embed, leaderboards, block expansion, enrollment migration tooling |
+| **3** | Trusted partner drafts | Partner Studio, approval queue, trust admin, partner analytics |
+| **4** | Post-v1 | Proof-of-learning (signed attestations, ecosystem credentials, portable records), webhooks, SSO, embed, block expansion |
 
 ### Phase 0 bootstrap sequence
 
