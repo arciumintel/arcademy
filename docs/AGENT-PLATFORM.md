@@ -10,7 +10,7 @@ When this file and the full design spec disagree, **follow the spec** unless the
 
 ## One-line thesis
 
-Arcidex is ecosystem onboarding infrastructure: guided programs, comprehension checks, and measurable progress for developer adoption across the Arcium ecosystem. Internally, the platform owns structure, versioning, tenant isolation, and progress integrity; developers get one account and a curated hub.
+Arcidex is ecosystem onboarding infrastructure: guided programs, comprehension checks, and measurable progress for new user onboarding and developer adoption across the Arcium ecosystem. Internally, the platform owns structure, versioning, tenant isolation, and progress integrity; users get one account and a curated hub.
 
 **Partner outcomes (product north star):** reduce onboarding friction, improve activation, standardize onboarding, identify drop-off points, prepare developers before support requests.
 
@@ -22,7 +22,7 @@ Arcidex is ecosystem onboarding infrastructure: guided programs, comprehension c
 
 **Is not (v1):** Education platform or generic LMS (SCORM, classrooms, marketplaces), partner CMS/page builder, custom question types, cross-program leaderboards, partner SSO, embed SDK, webhooks, billing, push notifications, analytics warehouse.
 
-Scope test: *Does this help an ecosystem team onboard developers and verify they're ready to integrate?* If no → defer.
+Scope test: *Does this help an ecosystem team onboard new users—including developers—and verify they are ready to use or integrate the product?* If no → defer.
 
 ---
 

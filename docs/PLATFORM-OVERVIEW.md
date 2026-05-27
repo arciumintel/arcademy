@@ -1,8 +1,8 @@
 # What is Arcidex?
 
-Arcidex is **ecosystem onboarding infrastructure** for the Arcium ecosystem—not an education platform or generic LMS. It helps ecosystem teams turn complex protocol documentation into **guided onboarding programs**—with comprehension checks and measurable progress—so they can see whether developers actually understood a product before they integrate, not just clicked through a doc.
+Arcidex is **ecosystem onboarding infrastructure** for the Arcium ecosystem—not an education platform or generic LMS. It helps ecosystem teams turn complex protocol documentation into **guided onboarding programs**—with comprehension checks and measurable progress—so they can see whether users actually understood a product before they go deeper or integrate, not just clicked through a doc.
 
-Developers and integrators get **one account** and a **curated catalog** of programs. Partners get governed onboarding infrastructure—without building their own onboarding stack from scratch—and clear outcomes from structured programs and progress data (see [Why partners use Arcidex](#why-partners-use-arcidex)).
+New users and developers get **one account** and a **curated catalog** of programs. Partners get governed onboarding infrastructure—without building their own onboarding stack from scratch—and clear outcomes from structured programs and progress data (see [Why partners use Arcidex](#why-partners-use-arcidex)).
 
 This document explains the product in plain language. For engineering detail, see the [design spec](superpowers/specs/2026-05-20-ecosystem-platform-design.md). For day-to-day agent rules, see [AGENT-PLATFORM.md](AGENT-PLATFORM.md).
 
@@ -10,20 +10,20 @@ This document explains the product in plain language. For engineering detail, se
 
 ## The idea in one sentence
 
-Arcidex is ecosystem onboarding infrastructure: guided programs, comprehension checks, and measurable progress for developer adoption across the Arcium ecosystem.
+Arcidex is ecosystem onboarding infrastructure: guided programs, comprehension checks, and measurable progress for new user onboarding and developer adoption across the Arcium ecosystem.
 
 ---
 
 ## Why partners use Arcidex
 
-Partners are ecosystem teams (protocols, apps, tooling) who need developers to **integrate and activate**, not just read docs. Arcidex gives them shared onboarding infrastructure and a governed program model so they can:
+Partners are ecosystem teams (protocols, apps, tooling) who need new users to **activate** and developers to **integrate**—not just read docs. Arcidex gives them shared onboarding infrastructure and a governed program model so they can:
 
 | Outcome | What Arcidex enables |
 | --- | --- |
 | **Reduce onboarding friction** | Turn scattered protocol docs into a linear, guided path—one link, one program, clear next steps. |
-| **Improve activation** | Comprehension checks confirm developers understood key concepts before they integrate or go deeper. |
+| **Improve activation** | Comprehension checks confirm users understood key concepts before they go deeper or integrate. |
 | **Standardize onboarding** | Structured blocks and platform-defined quizzes keep quality consistent across programs and partner teams. |
-| **Identify drop-off points** | Lesson- and version-scoped progress shows where developers stall—before it shows up only in support tickets. |
+| **Identify drop-off points** | Lesson- and version-scoped progress shows where users stall—before it shows up only in support tickets. |
 | **Prepare developers before support requests** | Quizzes and progress signal who completed fundamentals; partners spend support time on real blockers, not repeat basics. |
 
 Partners do **not** build bespoke onboarding from scratch or run a separate LMS. Staff help new partners launch; trusted partners edit drafts under review (v1). Analytics and exports roll out in Phase 2+; the data model is designed for these outcomes from day one.
@@ -34,15 +34,15 @@ Partners do **not** build bespoke onboarding from scratch or run a separate LMS.
 
 | Term | What it means |
 | --- | --- |
-| **Hub** | The public home page and catalog where developers discover programs (`/` and `/programs`). |
-| **Program** | A complete onboarding path for one product or protocol (e.g. “Arcium Fundamentals”). This is what developers enroll in. |
+| **Hub** | The public home page and catalog where users discover programs (`/` and `/programs`). |
+| **Program** | A complete onboarding path for one product or protocol (e.g. “Arcium Fundamentals”). This is what users enroll in. |
 | **Organization** | The partner company that owns one or more programs. Used for permissions and analytics boundaries. |
 | **Lesson** | A reading-first page in a program. May include a short quiz at the end. |
 | **Track** | A group of lessons within a program (like a chapter or module). |
 | **Quiz** | A comprehension check tied to a lesson. Uses fixed question types defined by the platform—not a free-form quiz builder. |
 | **Draft** | Work-in-progress content authors can still edit. |
-| **Publish** | Staff action that freezes a snapshot of the draft and makes it the live version developers see. Published content is not edited in place. |
-| **Enrollment** | A developer’s membership in a specific program. Progress is tracked per program. |
+| **Publish** | Staff action that freezes a snapshot of the draft and makes it the live version users see. Published content is not edited in place. |
+| **Enrollment** | A user’s membership in a specific program. Progress is tracked per program. |
 | **Staff** | Arcidex operators who curate the hub, onboard partners, review content, and publish. |
 | **Trusted partner** | A partner who passed a manual quality gate and may edit **drafts** in Partner Studio. They still cannot go live without staff approval in v1. |
 
@@ -50,7 +50,7 @@ Partners do **not** build bespoke onboarding from scratch or run a separate LMS.
 
 ## Who uses Arcidex?
 
-### Developers & integrators
+### Users & developers
 
 **What they get:** Progress that persists, completion that means something, and a path toward ecosystem readiness—not engagement gimmicks.
 
@@ -59,7 +59,7 @@ Partners do **not** build bespoke onboarding from scratch or run a separate LMS.
 | **Progress continuity** | One account, enrollments pinned to curriculum versions, guest-to-account merge—pick up where you left off across sessions and programs. |
 | **Verified completion** | Quizzes and mastery thresholds confirm comprehension; progress ties to immutable `lesson_version` / `quiz_version` rows, not mutable docs. |
 | **Credentialing (v1 foundation)** | Program completion and quiz pass states are recorded server-side; v1 surfaces them in `/account` and partner analytics—not yet portable credentials. |
-| **Ecosystem readiness** | Finish a program knowing you met the bar to integrate, build, or ask smarter support questions. |
+| **Ecosystem readiness** | Finish a program knowing you met the bar to use the product, integrate, build, or ask smarter support questions. |
 
 **Day-to-day:**
 
@@ -70,7 +70,7 @@ Partners do **not** build bespoke onboarding from scratch or run a separate LMS.
 
 ### Partners (ecosystem apps)
 
-**What they get:** See [Why partners use Arcidex](#why-partners-use-arcidex)—lower friction onboarding, better activation, standardized onboarding paths, drop-off visibility, and developers prepared before support.
+**What they get:** See [Why partners use Arcidex](#why-partners-use-arcidex)—lower friction onboarding, better activation, standardized onboarding paths, drop-off visibility, and users prepared before deeper integration or support.
 
 **How they work with Arcidex:**
 
@@ -92,14 +92,14 @@ Partners do **not** build bespoke onboarding from scratch or run a separate LMS.
 
 1. **Draft** — Staff (or a trusted partner later) writes lessons using structured blocks: headings, paragraphs, callouts, code, images—not arbitrary web pages.
 2. **Review** — For partner content, staff checks quality (quizzes make sense, images work, accessibility basics).
-3. **Publish** — Staff publishes a frozen snapshot. Developers see this version.
+3. **Publish** — Staff publishes a frozen snapshot. Users see this version.
 4. **List on hub** — Publishing alone is not enough. Staff also marks a program as **listed** or **featured** so it appears in the public catalog.
 
 If staff publish an updated version, **existing enrollments stay on the version they started** unless staff manually migrate them (v1). That protects progress integrity when content changes.
 
 ---
 
-## What developers see (routes)
+## What users see (routes)
 
 | Page | Purpose |
 | --- | --- |
@@ -119,7 +119,7 @@ Staff and partner authoring tools live under `/staff` and `/partner` (rolled out
 
 - Curated hub and program catalog
 - Reading-first lessons with platform-defined quizzes
-- One global developer account (Arcidex account)
+- One global Arcidex account
 - Staff-built programs for new partners
 - Arcium as the first program at launch
 - **Progress continuity** across sessions (global account, version-pinned enrollments, guest merge)
@@ -137,7 +137,7 @@ Staff and partner authoring tools live under `/staff` and `/partner` (rolled out
 - Embeddable widget for partner apps
 - Webhooks and billing
 
-**Scope check we use:** Does this help an ecosystem team onboard developers and verify they’re ready to integrate—or credibly record that they are? If not, it waits.
+**Scope check we use:** Does this help an ecosystem team onboard new users—including developers—and verify they are ready to use or integrate the product—or credibly record that they are? If not, it waits.
 
 ---
 

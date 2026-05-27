@@ -9,11 +9,11 @@
 
 ## 1. Executive summary
 
-Arcidex is **ecosystem onboarding infrastructure** for apps in the Arcium ecosystem—not an education platform or generic LMS. Each ecosystem partner runs a **Program** (structured lessons + comprehension quizzes) for its developers and integrators under one **Arcidex hub**, with **Arcium as Program #1**.
+Arcidex is **ecosystem onboarding infrastructure** for apps in the Arcium ecosystem—not an education platform or generic LMS. Each ecosystem partner runs a **Program** (structured lessons + comprehension quizzes) for its users under one **Arcidex hub**, with **Arcium as Program #1**.
 
 This revision strengthens the original plan where it was vague: **tenancy is first-class**, **published content is versioned and immutable**, **tenant isolation is enforced in the database and application layer**, **lesson content is block-structured**, **onboarding integrity over gamification for v1**, and **events + analytics are designed in from the start** rather than bolted on later.
 
-**v1 goal (honest scope):** A developer can discover curated programs on the hub, enroll, complete a linear onboarding path with comprehension checks, and retain progress across sessions—including guest-first entry on lesson 1. Staff can onboard partners, build their first program, and publish curated hub listings. One trusted pilot partner can self-serve draft content under staff review.
+**v1 goal (honest scope):** A user can discover curated programs on the hub, enroll, complete a linear onboarding path with comprehension checks, and retain progress across sessions—including guest-first entry on lesson 1. Staff can onboard partners, build their first program, and publish curated hub listings. One trusted pilot partner can self-serve draft content under staff review.
 
 **Explicitly not v1:** Education-platform positioning; generic LMS features (course marketplaces, SCORM, arbitrary page builders, cross-program leaderboards, push notifications, seasonal resets, partner billing, embed SDK).
 
@@ -27,8 +27,8 @@ This revision strengthens the original plan where it was vague: **tenancy is fir
 
 Arcidex is **ecosystem onboarding infrastructure** for the Arcium ecosystem:
 
-- Partners need developers to **integrate and activate**, not just click through docs—and to do so with less friction, **consistent onboarding**, **visible drop-off**, and **fewer unprepared support requests**.
-- Developers get **progress continuity**, **verified completion**, and a path toward **ecosystem readiness**—not streaks or cosmetic rewards.
+- Partners need new users to **activate** and developers to **integrate**—not just click through docs—and to do so with less friction, **consistent onboarding**, **visible drop-off**, and **fewer unprepared support requests**.
+- Users get **progress continuity**, **verified completion**, and a path toward **ecosystem readiness**—not streaks or cosmetic rewards.
 - Arcidex owns **structure, integrity, and trust**—not partner product logic.
 
 **Partner outcomes:**
@@ -41,13 +41,13 @@ Arcidex is **ecosystem onboarding infrastructure** for the Arcium ecosystem:
 | Identify drop-off points | Lesson-version progress + funnel analytics (Phase 2+) |
 | Prepare developers before support | Progress + quiz pass signal before deep integration / support |
 
-**One-line thesis:** *Arcidex is ecosystem onboarding infrastructure—guided programs, comprehension checks, and measurable progress for developer adoption across the Arcium ecosystem.*
+**One-line thesis:** *Arcidex is ecosystem onboarding infrastructure—guided programs, comprehension checks, and measurable progress for new user onboarding and developer adoption across the Arcium ecosystem.*
 
 ### What Arcidex is not
 
 | Not this | Why |
 |----------|-----|
-| Education platform / ed-tech LMS | We onboard developers into protocols and apps—not classrooms, curricula, or instructor-led courses. |
+| Education platform / ed-tech LMS | We onboard users and developers into protocols and apps—not classrooms, curricula, or instructor-led courses. |
 | Generic LMS (Canvas, Moodle) | We don't do arbitrary courses, grading rubrics, instructor classrooms, or SCORM. |
 | Partner CMS / marketing site builder | Lesson blocks are structured and constrained; partners don't own layout/CSS. |
 | Full gamification platform | v1 ships comprehension + progress integrity; streaks/badges/leaderboards/tokens are out of scope |
@@ -65,7 +65,7 @@ Arcidex is **ecosystem onboarding infrastructure** for the Arcium ecosystem:
 
 ### Scope drift guardrails
 
-Any feature request is evaluated against: *Does this help an ecosystem team onboard developers and verify they're ready to integrate?* If no → defer or reject.
+Any feature request is evaluated against: *Does this help an ecosystem team onboard new users—including developers—and verify they are ready to use or integrate the product?* If no → defer or reject.
 
 ---
 
@@ -77,7 +77,7 @@ Tenancy is a **chain of ownership and publish boundaries**, not a slug prefix.
 
 ```
 Organization (legal/partner entity)
-  └── Program (developer-facing onboarding curriculum)
+  └── Program (user-facing onboarding curriculum)
         └── Curriculum (ordered collection of tracks + publish unit)
               └── CurriculumVersion (immutable snapshot once published)
                     └── Track (module group within a version)
@@ -86,7 +86,7 @@ Organization (legal/partner entity)
 ```
 
 **Organization** — Partner entity. Has members, trust flags, billing placeholder (unused v1).  
-**Program** — What developers see in the hub ("Arcium Fundamentals", "App X Onboarding"). Belongs to exactly one org. Has hub metadata (logo, tagline, status).  
+**Program** — What users see in the hub ("Arcium Fundamentals", "App X Onboarding"). Belongs to exactly one org. Has hub metadata (logo, tagline, status).  
 **Curriculum** — Logical container for versioning. A program has one *active published* curriculum version at a time; drafts target the *working* draft curriculum.  
 **CurriculumVersion** — Immutable after publish. Contains ordered tracks and lesson version references. Progress and analytics reference **version IDs**, not mutable lesson rows.  
 **Track** — Equivalent to today's `category_id` grouping within a program (e.g. "Architecture"). Scoped to a curriculum version.  
@@ -341,7 +341,7 @@ Staff Studio is the **evolution of `/staff/modules`**, not a parallel system.
 
 ---
 
-## 6. Revised developer onboarding experience and discovery model
+## 6. Revised user onboarding experience and discovery model
 
 ### 6.1 Routes
 
@@ -392,11 +392,11 @@ Programs appear on hub only when **all** are true:
 
 ---
 
-## 7. Onboarding integrity and developer value (v1)
+## 7. Onboarding integrity and user value (v1)
 
 ### 7.1 Design principle
 
-Arcidex optimizes for **credible onboarding outcomes** in technical ecosystems—not engagement mechanics that feel superficial. Partners and developers should trust that progress means comprehension and integration readiness, not vanity metrics.
+Arcidex optimizes for **credible onboarding outcomes** in technical ecosystems—not engagement mechanics that feel superficial. Partners and users should trust that progress means comprehension and readiness to use or integrate, not vanity metrics.
 
 **v1 emphasis:**
 
@@ -567,7 +567,7 @@ org.trust_level_changed
 
 ### Phase 1 — Hub + onboarding loop (3–4 weeks)
 
-**Goal:** Public catalog and program-scoped developer onboarding UX.
+**Goal:** Public catalog and program-scoped onboarding UX.
 
 - [ ] Hub home + `/programs` with curation rules  
 - [ ] Program home + lesson player (program-scoped)  
