@@ -2,7 +2,7 @@
 
 **Read this before scaffolding, migrations, routes, or any feature that touches programs, lessons, partners, or the hub.**
 
-Arcidex is **greenfield** multi-tenant onboarding infrastructure for the Arcium ecosystem. Each partner runs a **Program** (structured lessons + comprehension quizzes) under one curated hub. **Arcium Fundamentals** ships as **Program #1** at launch — seeded like any other program, not as a special code path.
+Arcidex is **greenfield** **ecosystem onboarding infrastructure** for the Arcium ecosystem—not an education platform or generic LMS. Each partner runs a **Program** (structured lessons + comprehension quizzes) under one curated hub. **Arcium Fundamentals** ships as **Program #1** at launch — seeded like any other program, not as a special code path.
 
 When this file and the full design spec disagree, **follow the spec** unless the user explicitly changes direction.
 
@@ -10,19 +10,19 @@ When this file and the full design spec disagree, **follow the spec** unless the
 
 ## One-line thesis
 
-Arcidex helps ecosystem teams turn complex protocol documentation into guided onboarding programs—with comprehension checks and measurable learner progress. Internally, the platform owns structure, versioning, tenant isolation, and progress integrity; learners get one account and a curated hub.
+Arcidex is ecosystem onboarding infrastructure: guided programs, comprehension checks, and measurable progress for developer adoption across the Arcium ecosystem. Internally, the platform owns structure, versioning, tenant isolation, and progress integrity; developers get one account and a curated hub.
 
-**Partner outcomes (product north star):** reduce onboarding friction, improve activation, standardize education, identify drop-off points, prepare developers before support requests.
+**Partner outcomes (product north star):** reduce onboarding friction, improve activation, standardize onboarding, identify drop-off points, prepare developers before support requests.
 
 ---
 
 ## What Arcidex is / is not
 
-**Is:** Hub discovery, program-scoped curricula, block-structured lessons, platform-defined quizzes with partner guardrails, staff-governed publishing, event-backed progress, reading-first lesson UX.
+**Is:** Ecosystem onboarding infrastructure — hub discovery, program-scoped curricula, block-structured lessons, platform-defined quizzes with partner guardrails, staff-governed publishing, event-backed progress, reading-first lesson UX.
 
-**Is not (v1):** Generic LMS (SCORM, classrooms, marketplaces), partner CMS/page builder, custom question types, cross-program leaderboards, partner SSO, embed SDK, webhooks, billing, push notifications, analytics warehouse.
+**Is not (v1):** Education platform or generic LMS (SCORM, classrooms, marketplaces), partner CMS/page builder, custom question types, cross-program leaderboards, partner SSO, embed SDK, webhooks, billing, push notifications, analytics warehouse.
 
-Scope test: *Does this help an ecosystem app verify user comprehension of their product?* If no → defer.
+Scope test: *Does this help an ecosystem team onboard developers and verify they're ready to integrate?* If no → defer.
 
 ---
 
@@ -39,7 +39,7 @@ Scope test: *Does this help an ecosystem app verify user comprehension of their 
 | **Published content** | Immutable `curriculum_version` / `lesson_version` / `quiz_version`; never UPDATE published rows |
 | **Draft edits** | Always against the program's **working draft curriculum**; publish creates new immutable snapshots |
 | **Enrollment pinning** | `program_enrollment.curriculum_version_id` pinned at enroll/first activity; **unchanged** when staff publishes a newer version (v1 migration is manual staff action) |
-| **Learning integrity v1** | Progress continuity, verified completion, comprehension checks; **no** streaks/badges/leaderboards as product focus |
+| **Onboarding integrity v1** | Progress continuity, verified completion, comprehension checks; **no** streaks/badges/leaderboards as product focus |
 | **Lesson body** | Structured blocks (Zod-validated); no author-supplied raw HTML |
 | **Tenant isolation** | Tenant context + scoped repositories + Postgres RLS — **all three, from day one** |
 | **Content storage** | Postgres only at runtime; no JSON seed files or Keystatic as lesson source of truth |
@@ -127,7 +127,7 @@ A program appears on the public hub only when **all** are true: `hub_status` is 
 
 | Route | Phase | Role |
 | --- | --- | --- |
-| `/` | 1 | Hub home (featured programs, continue learning) |
+| `/` | 1 | Hub home (featured programs, continue where you left off) |
 | `/programs` | 1 | Catalog (listed/featured only) |
 | `/programs/[programSlug]` | 1 | Program home: path, enroll/continue CTA |
 | `/programs/[programSlug]/lessons/[lessonSlug]` | 1 | Lesson player |
@@ -247,7 +247,7 @@ Build in order. Do not skip phases.
 | Phase | Goal | Key deliverables |
 | --- | --- | --- |
 | **0** | Tenancy foundation | Migrations, RLS, repositories, block schema, Arcium seed, isolation tests. **No public hub UI.** |
-| **1** | Hub + learner loop | Hub routes, lesson player, enrollments, guest merge, `platform_event`, basic staff hub curation |
+| **1** | Hub + onboarding loop | Hub routes, lesson player, enrollments, guest merge, `platform_event`, basic staff hub curation |
 | **2** | Partner onboarding | Intake, Staff Studio UI, publish/rollback, preview links, analytics rollups |
 | **3** | Trusted partner drafts | Partner Studio, approval queue, trust admin, partner analytics |
 | **4** | Post-v1 | Proof-of-learning (signed attestations, ecosystem credentials, portable records), webhooks, SSO, embed, block expansion |

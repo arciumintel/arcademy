@@ -4,7 +4,7 @@ Repo-specific decisions and footguns. Short and current. Prune entries when they
 
 ## Start here
 
-Arcidex is a **greenfield** platform. Before routes, migrations, staff UI, or lesson/quiz work, read **`docs/AGENT-PLATFORM.md`**. Full engineering spec: `docs/superpowers/specs/2026-05-20-ecosystem-platform-design.md`. Human-readable overview: `docs/PLATFORM-OVERVIEW.md`.
+Arcidex is **ecosystem onboarding infrastructure** (not an education platform). Before routes, migrations, staff UI, or lesson/quiz work, read **`docs/AGENT-PLATFORM.md`**. Full engineering spec: `docs/superpowers/specs/2026-05-20-ecosystem-platform-design.md`. Human-readable overview: `docs/PLATFORM-OVERVIEW.md`.
 
 **Phase order is strict:** Phase 0 (tenancy + database isolation) before public hub UI. Do not skip.
 
