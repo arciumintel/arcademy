@@ -36,7 +36,7 @@ function ShellInner({ children }: { children: ReactNode }) {
           <PortalTopBar />
           <main
             id="main-content"
-            className="relative z-0 w-full flex-1"
+            className="relative z-0 w-full flex-1 overflow-x-clip"
             style={{
               paddingLeft: "clamp(20px, 4vw, 64px)",
               paddingRight: "clamp(20px, 4vw, 64px)",

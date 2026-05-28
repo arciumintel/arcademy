@@ -26,18 +26,15 @@ export default async function HomePage() {
         <h1
           className="font-sans text-ink"
           style={{
-            fontSize: "clamp(3rem, 11vw, 10rem)",
+            fontSize: "clamp(2.4rem, 7vw, 5.6rem)",
             fontWeight: 800,
-            lineHeight: 0.88,
-            letterSpacing: "-0.045em",
-            marginLeft: "-0.04em",
+            lineHeight: 0.94,
+            letterSpacing: "-0.04em",
+            marginLeft: "-0.02em",
           }}
         >
           <span className="block">One hub.</span>
-          <span className="block">Every ecosystem</span>
-          <span className="block whitespace-nowrap">
-            program<span className="text-accent">.</span>
-          </span>
+          <span className="block">Every ecosystem program<span className="text-accent">.</span></span>
         </h1>
 
         <div className="mt-12 grid grid-cols-1 items-end gap-y-10 md:mt-16 md:grid-cols-[1fr_300px] md:gap-x-14">
